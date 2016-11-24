@@ -23,7 +23,11 @@ public class UIUtils {
         return getResources().getString(resId);
     }
 
-    public static String getPackageName(){
+    public static String[] getStringArray(int resId) {
+        return getResources().getStringArray(resId);
+    }
+
+    public static String getPackageName() {
         return getContext().getPackageName();
     }
 }
