@@ -30,4 +30,8 @@ public class UIUtils {
     public static String getPackageName() {
         return getContext().getPackageName();
     }
+
+    public static int getColor(int resId) {
+        return getResources().getColor(resId);
+    }
 }

@@ -33,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
         initData();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private void initView() {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
         mTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        mTabStrip.setTextColor(UIUtils.getColor(R.color.tab_text_normal), UIUtils.getColor(R.color.tab_text_selected));
         mPager = (ViewPager) findViewById(R.id.main_pager);
     }
 
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            if(mTitles!=null){
+            if (mTitles != null) {
                 return mTitles.length;
             }
             return 0;
