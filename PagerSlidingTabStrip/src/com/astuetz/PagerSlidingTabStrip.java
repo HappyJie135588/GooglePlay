@@ -223,18 +223,21 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
                 currentPosition = pager.getCurrentItem();
                 scrollToChild(currentPosition, 0);
+                /*add by HJ begin 修改源代码*/
+                if (delegatePageListener != null) {
+                    delegatePageListener.onPageSelected(currentPosition);
+                }
+                /*add by HJ begin 修改源代码*/
             }
         });
 
     }
 
     private void addTextTab(final int position, String title) {
-
         TextView tab = new TextView(getContext());
         tab.setText(title);
         tab.setGravity(Gravity.CENTER);
         tab.setSingleLine();
-
         addTab(position, tab);
     }
 

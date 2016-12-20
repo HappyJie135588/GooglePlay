@@ -1,5 +1,9 @@
 package com.huangjie.googleplay;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +18,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.huangjie.googleplay.factory.FragmentFactory;
+import com.huangjie.googleplay.fragment.BaseFragment;
+import com.huangjie.googleplay.utils.LogUtils;
 import com.huangjie.googleplay.utils.UIUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -75,8 +82,54 @@ public class MainActivity extends AppCompatActivity {
 
     private void initData() {
         mTitles = UIUtils.getStringArray(R.array.main_titles);
-        mPager.setAdapter(new MainPagerAdapter());
+        mPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager()));
         mTabStrip.setViewPager(mPager);
+        mTabStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                //当选中的时候去加载数据
+                BaseFragment fragment = FragmentFactory.getFragment(position);
+                fragment.loadData();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+    //FragmentPagerAdapter:在页面比较少的情况下使用,缓存的是fragment
+    //FragmentStatePagerAdapter:在页面比较多的情况下使用,缓存的是状态
+    class MainFragmentPagerAdapter extends FragmentStatePagerAdapter {
+
+        public MainFragmentPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            LogUtils.d("获取第"+position+"个页面");
+            return FragmentFactory.getFragment(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mTitles.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if (mTitles != null) {
+                return mTitles[position];
+            }
+            return super.getPageTitle(position);
+        }
+
     }
 
     class MainPagerAdapter extends PagerAdapter {
