@@ -40,12 +40,6 @@ public class MainActivity extends AppCompatActivity {
         initData();
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -132,41 +126,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    class MainPagerAdapter extends PagerAdapter {
-
-        @Override
-        public int getCount() {
-            if (mTitles != null) {
-                return mTitles.length;
-            }
-            return 0;
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            TextView tv = new TextView(UIUtils.getContext());
-            tv.setText(mTitles[position]);
-            container.addView(tv);
-            return tv;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            container.removeView((View) object);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            if (mTitles != null) {
-                return mTitles[position];
-            }
-            return super.getPageTitle(position);
-        }
-    }
 
 }

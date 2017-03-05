@@ -35,11 +35,6 @@ public abstract class BaseFragment extends Fragment {
                     return onLoadingData();
                 }
             };
-        }else{
-//            ViewParent parent = mLoadingPager.getParent();
-//            if(parent!=null&&parent instanceof ViewGroup) {
-//                ((ViewGroup) parent).removeView(mLoadingPager);
-//            }
         }
         return mLoadingPager;
     }
