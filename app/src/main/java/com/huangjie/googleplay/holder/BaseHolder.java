@@ -47,4 +47,5 @@ public abstract class BaseHolder<T> {
         //通过数据来改变UI显示
         refreshUI(data);
     }
+
 }
