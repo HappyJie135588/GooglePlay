@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
+import org.xutils.x;
+
 /**
  * Created by 黄杰 on 2016/11/17.
  */
@@ -21,6 +23,8 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        x.Ext.init(this);
+        x.Ext.setDebug(BuildConfig.DEBUG); // 是否输出debug日志, 开启debug会影响性能.
 
         //上下文
         mContext = getApplicationContext();

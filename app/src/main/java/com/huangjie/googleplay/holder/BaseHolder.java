@@ -10,7 +10,7 @@ import android.view.View;
 public abstract class BaseHolder<T> {
     //提供不具体化的View
     private View mRootView;//根视图
-    private T mData;//数据
+    protected T mData;//数据
 
     public BaseHolder() {
         mRootView = initView();
@@ -47,5 +47,4 @@ public abstract class BaseHolder<T> {
         //通过数据来改变UI显示
         refreshUI(data);
     }
-
 }

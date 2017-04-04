@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GooglePlay.iml" filepath="$PROJECT_DIR$/GooglePlay.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PagerSlidingTabStrip/PagerSlidingTabStrip.iml" filepath="$PROJECT_DIR$/PagerSlidingTabStrip/PagerSlidingTabStrip.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XUtils/XUtils.iml" filepath="$PROJECT_DIR$/XUtils/XUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/xutils/xutils.iml" filepath="$PROJECT_DIR$/xutils/xutils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pagerSlidingTabStrip/pagerSlidingTabStrip.iml" filepath="$PROJECT_DIR$/pagerSlidingTabStrip/pagerSlidingTabStrip.iml" />
     </modules>
   </component>
 </project>

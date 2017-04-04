@@ -24,6 +24,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.android.support:design:24.0.0'
-    compile project(':PagerSlidingTabStrip')
-    compile project(':xutils')
+    compile project(':pagerSlidingTabStrip')
+    compile project(':XUtils')
+    compile 'com.google.code.gson:gson:2.8.0'
 }

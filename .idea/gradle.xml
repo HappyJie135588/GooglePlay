@@ -8,9 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/PagerSlidingTabStrip" />
+            <option value="$PROJECT_DIR$/XUtils" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/xutils" />
+            <option value="$PROJECT_DIR$/pagerSlidingTabStrip" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
