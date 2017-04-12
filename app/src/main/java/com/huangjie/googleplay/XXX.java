@@ -27,5 +27,6 @@ public class XXX extends AppCompatActivity {
     }
     //从新修改了代码
     //又新增了代码
+    //检出远程分支作为本地分支
 
 }
