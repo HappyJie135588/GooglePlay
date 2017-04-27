@@ -1,6 +1,10 @@
 package com.huangjie.googleplay.utils;
 
-import android.text.*;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.CharacterStyle;
 import android.text.style.ForegroundColorSpan;
 

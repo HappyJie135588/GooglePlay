@@ -7,6 +7,8 @@ package com.huangjie.googleplay.utils;
 public interface Constans {
     //每页显示的数量
     int PAGER_SIZE = 20;
+    //缓存时效
+    long refresh_delay = 5*60*1000;
     //服务器IP地址
     String ServerIP = "192.168.4.197";
     //服务器地址

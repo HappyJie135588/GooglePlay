@@ -1,8 +1,8 @@
 package com.huangjie.googleplay.factory;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.util.SparseArrayCompat;
 
+import com.huangjie.googleplay.fragment.AppFragment;
 import com.huangjie.googleplay.fragment.BaseFragment;
 import com.huangjie.googleplay.fragment.HomeFragment;
 import com.huangjie.googleplay.utils.LogUtils;
@@ -28,7 +28,7 @@ public class FragmentFactory {
                 fragment = new HomeFragment();
                 break;
             case 1:
-                fragment = new HomeFragment();
+                fragment = new AppFragment();
                 break;
             case 2:
                 fragment = new HomeFragment();

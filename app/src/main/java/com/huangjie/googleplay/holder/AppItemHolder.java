@@ -8,14 +8,11 @@ import android.widget.TextView;
 
 import com.huangjie.googleplay.BaseApplication;
 import com.huangjie.googleplay.R;
-import com.huangjie.googleplay.bean.HomeBean;
 import com.huangjie.googleplay.bean.HomeBean.AppInfoBean;
 import com.huangjie.googleplay.utils.Constans;
 import com.huangjie.googleplay.utils.ImageOptionsHelper;
 import com.huangjie.googleplay.utils.StringUtils;
 
-import org.w3c.dom.Text;
-import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 

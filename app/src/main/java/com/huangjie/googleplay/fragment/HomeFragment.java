@@ -6,7 +6,6 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
 import com.huangjie.googleplay.R;
 import com.huangjie.googleplay.adapter.SuperBaseAdapter;
 import com.huangjie.googleplay.bean.HomeBean;
@@ -14,12 +13,8 @@ import com.huangjie.googleplay.fragment.LoadingPager.LoadedResult;
 import com.huangjie.googleplay.holder.AppItemHolder;
 import com.huangjie.googleplay.holder.BaseHolder;
 import com.huangjie.googleplay.holder.LoadMoreHolder;
-import com.huangjie.googleplay.utils.LogUtils;
+import com.huangjie.googleplay.http.HomeProtocol;
 import com.huangjie.googleplay.utils.UIUtils;
-import com.huangjie.googleplay.utils.Constans;
-
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
 import java.util.List;
 
@@ -27,10 +22,10 @@ import java.util.List;
  * Created by 黄杰 on 2016/12/19.
  */
 public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener {
-    //    private List<String> mDatas;//假数据,数据模拟
     private List<HomeBean.AppInfoBean> mDatas;
     private List<String> mPictures;
     private HomeAdapter mHomeAdapter;
+    private HomeProtocol mProtocol;
 
     @Override
     protected View onLoadSuccessView() {
@@ -42,7 +37,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         listView.setScrollingCacheEnabled(false);
         listView.setBackgroundColor(UIUtils.getColor(R.color.bg));
         //设置数据
-        mHomeAdapter = new HomeAdapter(listView,mDatas);
+        mHomeAdapter = new HomeAdapter(listView, mDatas);
         listView.setAdapter(mHomeAdapter);
         listView.setOnItemClickListener(this);
         return listView;
@@ -51,13 +46,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     protected LoadedResult onLoadingData() {
         //##3.去网络加载数据
+        mProtocol = new HomeProtocol();
         try {
-            RequestParams params = new RequestParams(Constans.HomeUrl);
-            params.addQueryStringParameter("index", "0");
-            String result = x.http().getSync(params, String.class);
-            LogUtils.d(result.toString());
-            Gson gson = new Gson();
-            HomeBean homeBean = gson.fromJson(result, HomeBean.class);
+            HomeBean homeBean = mProtocol.loadData(0);
             if (homeBean == null) {
                 return LoadedResult.EMPTY;
             }
@@ -75,10 +66,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(mHomeAdapter.getItemViewType(position)==HomeAdapter.TYPE_LOAD_MORE){
+        if (mHomeAdapter.getItemViewType(position) == HomeAdapter.TYPE_LOAD_MORE) {
             //点击的是加载更多
 
-            if(mHomeAdapter.getLoadMoreHolderCurrentState()==LoadMoreHolder.STATE_ERROR){
+            if (mHomeAdapter.getLoadMoreHolderCurrentState() == LoadMoreHolder.STATE_ERROR) {
                 //去加载更多
                 mHomeAdapter.performLoadMoreData();
             }
@@ -98,24 +89,14 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         }
 
         @Override
-        protected List<HomeBean.AppInfoBean> onLoadMoreData() throws Exception {
+        protected List<HomeBean.AppInfoBean> onLoadMoreData() throws Throwable {
             return loadMoreData(mDatas.size());
         }
 
     }
 
-    private List<HomeBean.AppInfoBean> loadMoreData(int index) {
-        RequestParams params = new RequestParams(Constans.HomeUrl);
-        params.addQueryStringParameter("index", index + "");
-        String result = null;
-        try {
-            result = x.http().getSync(params, String.class);
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-        LogUtils.d(result.toString());
-        Gson gson = new Gson();
-        HomeBean homeBean = gson.fromJson(result, HomeBean.class);
+    private List<HomeBean.AppInfoBean> loadMoreData(int index) throws Throwable {
+        HomeBean homeBean = mProtocol.loadData(index);
         if (homeBean == null) {
             return null;
         } else {

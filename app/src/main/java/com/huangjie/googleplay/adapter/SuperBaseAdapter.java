@@ -6,10 +6,8 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.huangjie.googleplay.R;
 import com.huangjie.googleplay.holder.BaseHolder;
 import com.huangjie.googleplay.holder.LoadMoreHolder;
 import com.huangjie.googleplay.manager.ThreadManager;
@@ -147,7 +145,7 @@ public abstract class SuperBaseAdapter<T> extends BaseAdapter implements Adapter
      *
      * @return
      */
-    protected List<T> onLoadMoreData() throws Exception {
+    protected List<T> onLoadMoreData() throws Throwable {
         return null;
     }
 
@@ -207,7 +205,7 @@ public abstract class SuperBaseAdapter<T> extends BaseAdapter implements Adapter
                     state = LoadMoreHolder.STATE_LOADING;
                 }
 
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 e.printStackTrace();
                 state = LoadMoreHolder.STATE_ERROR;
             }
