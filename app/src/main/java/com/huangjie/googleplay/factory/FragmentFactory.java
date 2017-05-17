@@ -4,7 +4,12 @@ import android.support.v4.util.SparseArrayCompat;
 
 import com.huangjie.googleplay.fragment.AppFragment;
 import com.huangjie.googleplay.fragment.BaseFragment;
+import com.huangjie.googleplay.fragment.CateGoryFragment;
+import com.huangjie.googleplay.fragment.GameFragment;
 import com.huangjie.googleplay.fragment.HomeFragment;
+import com.huangjie.googleplay.fragment.HotFragment;
+import com.huangjie.googleplay.fragment.RecommendFragment;
+import com.huangjie.googleplay.fragment.SubjectFragment;
 import com.huangjie.googleplay.utils.LogUtils;
 
 /**
@@ -25,25 +30,32 @@ public class FragmentFactory {
         }
         switch (position) {
             case 0:
+                //首页
                 fragment = new HomeFragment();
                 break;
             case 1:
+                //应用
                 fragment = new AppFragment();
                 break;
             case 2:
-                fragment = new HomeFragment();
+                //游戏
+                fragment = new GameFragment();
                 break;
             case 3:
-                fragment = new HomeFragment();
+                //专题
+                fragment = new SubjectFragment();
                 break;
             case 4:
-                fragment = new HomeFragment();
+                //推荐
+                fragment = new RecommendFragment();
                 break;
             case 5:
-                fragment = new HomeFragment();
+                //分类
+                fragment = new CateGoryFragment();
                 break;
             case 6:
-                fragment = new HomeFragment();
+                //排行
+                fragment = new HotFragment();
                 break;
         }
         //缓存起来

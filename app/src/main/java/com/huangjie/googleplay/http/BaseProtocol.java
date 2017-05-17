@@ -66,7 +66,7 @@ public abstract class BaseProtocol<T> {
     }
 
     private T getDataFromNet(int index) throws Throwable {
-        String url = Constans.ServerUrl +getInterfaceKey();
+        String url = Constans.ServerUrl + getInterfaceKey();
         RequestParams params = new RequestParams(url);
         params.addQueryStringParameter("index", index + "");
         String result = x.http().getSync(params, String.class);
@@ -78,6 +78,7 @@ public abstract class BaseProtocol<T> {
     }
 
     private void write2Local(int index, String json) throws Exception {
+        json = json.replace("\r\n", " ");
         File file = getCacheFile(index);
         //将json字符写入文件中
         BufferedWriter writer = null;

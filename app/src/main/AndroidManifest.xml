@@ -22,9 +22,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".AppDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
             android:name=".XXX"
             android:label="@string/title_activity_xxx"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
     </application>
 
 </manifest>

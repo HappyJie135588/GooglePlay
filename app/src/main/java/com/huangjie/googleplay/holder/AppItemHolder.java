@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.huangjie.googleplay.BaseApplication;
 import com.huangjie.googleplay.R;
-import com.huangjie.googleplay.bean.HomeBean.AppInfoBean;
+import com.huangjie.googleplay.bean.AppInfoBean;
 import com.huangjie.googleplay.utils.Constans;
 import com.huangjie.googleplay.utils.ImageOptionsHelper;
 import com.huangjie.googleplay.utils.StringUtils;

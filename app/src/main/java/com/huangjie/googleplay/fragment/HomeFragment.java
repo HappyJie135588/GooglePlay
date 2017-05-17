@@ -1,20 +1,21 @@
 package com.huangjie.googleplay.fragment;
 
-import android.graphics.Color;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.huangjie.googleplay.R;
+import com.huangjie.googleplay.adapter.AppListAdapter;
 import com.huangjie.googleplay.adapter.SuperBaseAdapter;
+import com.huangjie.googleplay.bean.AppInfoBean;
 import com.huangjie.googleplay.bean.HomeBean;
 import com.huangjie.googleplay.fragment.LoadingPager.LoadedResult;
 import com.huangjie.googleplay.holder.AppItemHolder;
 import com.huangjie.googleplay.holder.BaseHolder;
+import com.huangjie.googleplay.holder.HomePictureHolder;
 import com.huangjie.googleplay.holder.LoadMoreHolder;
 import com.huangjie.googleplay.http.HomeProtocol;
-import com.huangjie.googleplay.utils.UIUtils;
+import com.huangjie.googleplay.utils.ListViewFactory;
 
 import java.util.List;
 
@@ -22,20 +23,21 @@ import java.util.List;
  * Created by 黄杰 on 2016/12/19.
  */
 public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener {
-    private List<HomeBean.AppInfoBean> mDatas;
+    private List<AppInfoBean> mDatas;
     private List<String> mPictures;
     private HomeAdapter mHomeAdapter;
     private HomeProtocol mProtocol;
 
     @Override
     protected View onLoadSuccessView() {
-        ListView listView = new ListView(UIUtils.getContext());
-        //属性设置
-        listView.setCacheColorHint(Color.TRANSPARENT);
-        listView.setSelector(android.R.color.transparent);
-        listView.setDividerHeight(0);
-        listView.setScrollingCacheEnabled(false);
-        listView.setBackgroundColor(UIUtils.getColor(R.color.bg));
+        ListView listView = ListViewFactory.getListView();
+        //给ListView添加头
+        HomePictureHolder holder = new HomePictureHolder();
+        listView.addHeaderView(holder.getRootView());
+        holder.setData(mPictures);
+
+
+
         //设置数据
         mHomeAdapter = new HomeAdapter(listView, mDatas);
         listView.setAdapter(mHomeAdapter);
@@ -76,26 +78,20 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         }
     }
 
-    public class HomeAdapter extends SuperBaseAdapter<HomeBean.AppInfoBean> {
+    public class HomeAdapter extends AppListAdapter {
 
 
-        public HomeAdapter(AbsListView listView, List<HomeBean.AppInfoBean> datas) {
+        public HomeAdapter(AbsListView listView, List<AppInfoBean> datas) {
             super(listView, datas);
         }
 
         @Override
-        protected BaseHolder<HomeBean.AppInfoBean> getItemHolder() {
-            return new AppItemHolder();
-        }
-
-        @Override
-        protected List<HomeBean.AppInfoBean> onLoadMoreData() throws Throwable {
+        protected List<AppInfoBean> onLoadMoreData() throws Throwable {
             return loadMoreData(mDatas.size());
         }
-
     }
 
-    private List<HomeBean.AppInfoBean> loadMoreData(int index) throws Throwable {
+    private List<AppInfoBean> loadMoreData(int index) throws Throwable {
         HomeBean homeBean = mProtocol.loadData(index);
         if (homeBean == null) {
             return null;

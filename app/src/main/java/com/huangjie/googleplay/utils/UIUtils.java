@@ -3,8 +3,10 @@ package com.huangjie.googleplay.utils;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 
 import com.huangjie.googleplay.BaseApplication;
+import com.huangjie.googleplay.holder.HomePictureHolder;
 
 /**
  * Created by 黄杰 on 2016/11/17.
@@ -58,5 +60,44 @@ public class UIUtils {
             getMainHandler().post(task);
         }
 
+    }
+
+    /**
+     * dp转px
+     * @param dp
+     * @return
+     */
+    public static int dp2px(int dp) {
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float density = metrics.density;
+        return (int) (dp*density+0.5f);
+    }
+
+    /**
+     * px转dp
+     * @param px
+     * @return
+     */
+    public static int dx2dp(int px) {
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        float density = metrics.density;
+        return (int) (px/density+0.5f);
+    }
+
+    /**
+     * 执行延时任务
+     * @param task
+     * @param delayed
+     */
+    public static void postDelayed(Runnable task, int delayed) {
+        getMainHandler().postDelayed(task,delayed);
+    }
+
+    /**
+     * 移除任务
+     * @param task
+     */
+    public static void removeCallBacks(Runnable task) {
+        getMainHandler().removeCallbacks(task);
     }
 }

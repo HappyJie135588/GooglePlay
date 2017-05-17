@@ -30,9 +30,9 @@ public abstract class SuperBaseAdapter<T> extends BaseAdapter implements Adapter
     private LoadMoreTask mLoadMoreTask;
     private AbsListView mListView;
 
-    public SuperBaseAdapter(AbsListView listView,List<T> datas) {
+    public SuperBaseAdapter(AbsListView listView, List<T> datas) {
         this.mDatas = datas;
-        this.mListView =listView;
+        this.mListView = listView;
         mListView.setOnItemClickListener(this);
     }
 
@@ -151,6 +151,7 @@ public abstract class SuperBaseAdapter<T> extends BaseAdapter implements Adapter
 
     /**
      * 如果孩子有item的点击事件,复写此方法即可
+     *
      * @param parent
      * @param view
      * @param position
@@ -159,23 +160,24 @@ public abstract class SuperBaseAdapter<T> extends BaseAdapter implements Adapter
     public void onNoramlItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //position指的是listView的position(含头),不是Adapter的position
-        if(mListView instanceof ListView){
-              int count =  ((ListView) mListView).getHeaderViewsCount();
+        if (mListView instanceof ListView) {
+            int count = ((ListView) mListView).getHeaderViewsCount();
             position -= count;
         }
-        if(getItemViewType(position)==TYPE_LOAD_MORE){
+        if (getItemViewType(position) == TYPE_LOAD_MORE) {
             //点击的是加载更多
 
-            if(mLoadMoreHolder.getCurrentState()==LoadMoreHolder.STATE_ERROR){
+            if (mLoadMoreHolder.getCurrentState() == LoadMoreHolder.STATE_ERROR) {
                 //去加载更多
                 performLoadMoreData();
             }
-        }else{
+        } else {
             //点击的是普通的item
-            onNoramlItemClick(parent,view,position,id);
+            onNoramlItemClick(parent, view, position, id);
         }
     }
 
