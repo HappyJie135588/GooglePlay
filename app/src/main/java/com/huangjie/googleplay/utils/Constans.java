@@ -8,7 +8,7 @@ public interface Constans {
     //每页显示的数量
     int PAGER_SIZE = 20;
     //缓存时效
-    long refresh_delay = 5*60*1000;
+    long refresh_delay = 60 * 1000;
     //服务器IP地址
     String ServerIP = "192.168.4.197";
     //服务器地址
@@ -30,5 +30,13 @@ public interface Constans {
      * 例子： http://10.0.2.2:8080/GooglePlayServer/image?name=
      */
     String ImageUrl = ServerUrl + "image?name=";
+    /**
+     * 下载接口
+     * 请求方式: GET
+     * URL:	服务器地址 + download
+     * 请求参数：name(应用的downloadUrl名称)，range(从什么位置开始下载)
+     * 例子： http://10.0.2.2:8080/GooglePlayServer/download?name=&range=0
+     */
+    String DownloadUrl = ServerUrl + "download";
 
 }

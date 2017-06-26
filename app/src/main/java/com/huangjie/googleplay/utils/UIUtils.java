@@ -64,40 +64,48 @@ public class UIUtils {
 
     /**
      * dp转px
+     *
      * @param dp
      * @return
      */
     public static int dp2px(int dp) {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         float density = metrics.density;
-        return (int) (dp*density+0.5f);
+        return (int) (dp * density + 0.5f);
     }
 
     /**
      * px转dp
+     *
      * @param px
      * @return
      */
     public static int dx2dp(int px) {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         float density = metrics.density;
-        return (int) (px/density+0.5f);
+        return (int) (px / density + 0.5f);
     }
 
     /**
      * 执行延时任务
+     *
      * @param task
      * @param delayed
      */
     public static void postDelayed(Runnable task, int delayed) {
-        getMainHandler().postDelayed(task,delayed);
+        getMainHandler().postDelayed(task, delayed);
     }
 
     /**
      * 移除任务
+     *
      * @param task
      */
     public static void removeCallBacks(Runnable task) {
         getMainHandler().removeCallbacks(task);
+    }
+
+    public static String getString(int id, Object... formatArgs) {
+        return getResources().getString(id, formatArgs);
     }
 }

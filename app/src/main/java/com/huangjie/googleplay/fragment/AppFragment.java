@@ -21,7 +21,7 @@ import java.util.List;
  * Created by 黄杰 on 2017/4/27.
  */
 
-public class AppFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class AppFragment extends BaseFragment {
     private AppAdapter mAppAdapter;
     private List<AppInfoBean> mDatas;
     private AppProtocol mProtocol;
@@ -32,7 +32,6 @@ public class AppFragment extends BaseFragment implements AdapterView.OnItemClick
         //设置数据
         mAppAdapter = new AppFragment.AppAdapter(listView, mDatas);
         listView.setAdapter(mAppAdapter);
-        listView.setOnItemClickListener(this);
         return listView;
     }
 
@@ -48,18 +47,6 @@ public class AppFragment extends BaseFragment implements AdapterView.OnItemClick
         } catch (Throwable throwable) {
             throwable.printStackTrace();
             return LoadedResult.ERROR;
-        }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (mAppAdapter.getItemViewType(position) == AppAdapter.TYPE_LOAD_MORE) {
-            //点击的是加载更多
-
-            if (mAppAdapter.getLoadMoreHolderCurrentState() == LoadMoreHolder.STATE_ERROR) {
-                //去加载更多
-                mAppAdapter.performLoadMoreData();
-            }
         }
     }
 

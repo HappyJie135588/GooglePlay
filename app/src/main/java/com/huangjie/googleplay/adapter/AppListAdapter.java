@@ -20,8 +20,10 @@ import java.util.List;
  */
 
 public class AppListAdapter extends SuperBaseAdapter<AppInfoBean> {
+    private List<AppInfoBean> mDatas;
     public AppListAdapter(AbsListView listView, List<AppInfoBean> datas) {
         super(listView, datas);
+        mDatas = datas;
     }
 
     @Override
@@ -36,6 +38,7 @@ public class AppListAdapter extends SuperBaseAdapter<AppInfoBean> {
         Context context = UIUtils.getContext();
         Intent intent = new Intent(context, AppDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(AppDetailActivity.KEY_PACKAGENAME,mDatas.get(position).getPackageName());
         context.startActivity(intent);
 
     }

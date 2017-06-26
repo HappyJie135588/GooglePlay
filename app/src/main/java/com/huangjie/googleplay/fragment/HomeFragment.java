@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by 黄杰 on 2016/12/19.
  */
-public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class HomeFragment extends BaseFragment {
     private List<AppInfoBean> mDatas;
     private List<String> mPictures;
     private HomeAdapter mHomeAdapter;
@@ -41,7 +41,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         //设置数据
         mHomeAdapter = new HomeAdapter(listView, mDatas);
         listView.setAdapter(mHomeAdapter);
-        listView.setOnItemClickListener(this);
         return listView;
     }
 
@@ -63,18 +62,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         } catch (Throwable throwable) {
             throwable.printStackTrace();
             return LoadedResult.ERROR;
-        }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (mHomeAdapter.getItemViewType(position) == HomeAdapter.TYPE_LOAD_MORE) {
-            //点击的是加载更多
-
-            if (mHomeAdapter.getLoadMoreHolderCurrentState() == LoadMoreHolder.STATE_ERROR) {
-                //去加载更多
-                mHomeAdapter.performLoadMoreData();
-            }
         }
     }
 

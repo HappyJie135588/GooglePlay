@@ -7,12 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class XXX extends AppCompatActivity {
+public class YYY extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_xxx);
+        setContentView(R.layout.activity_yyy);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -25,13 +25,5 @@ public class XXX extends AppCompatActivity {
             }
         });
     }
-//回到远程分支最初的状态
-    //主分支修改了一个bug
-    //主分支又改了一个bug
-    //远程分支在push一次
-    //本地测试分支提交一次
-    //本地测试分支再提交一次
-    //远程分支提交一次
-    //远程分支再提交一次
 
 }

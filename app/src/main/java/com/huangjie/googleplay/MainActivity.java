@@ -1,13 +1,11 @@
 package com.huangjie.googleplay;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -17,22 +15,13 @@ import com.huangjie.googleplay.fragment.BaseFragment;
 import com.huangjie.googleplay.utils.LogUtils;
 import com.huangjie.googleplay.utils.UIUtils;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseAvtivity {
 
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;//抽屉开关控件
     private PagerSlidingTabStrip mTabStrip;
     private ViewPager mPager;
     private String[] mTitles;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initView();
-        initToolbar();
-        initData();
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -46,16 +35,18 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void initView() {
+    @Override
+    protected void initView() {
+        setContentView(R.layout.activity_main);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
         mTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         mTabStrip.setTextColor(UIUtils.getColor(R.color.tab_text_normal), UIUtils.getColor(R.color.tab_text_selected));
         mPager = (ViewPager) findViewById(R.id.main_pager);
     }
 
-    private void initToolbar() {
+    @Override
+    protected void initToolbar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setTitle("GooglePlay");
         toolbar.setLogo(R.mipmap.ic_launcher);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
         mTitles = UIUtils.getStringArray(R.array.main_titles);
         mPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager()));
         mTabStrip.setViewPager(mPager);
@@ -91,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     //FragmentPagerAdapter:在页面比较少的情况下使用,缓存的是fragment
     //FragmentStatePagerAdapter:在页面比较多的情况下使用,缓存的是状态
     class MainFragmentPagerAdapter extends FragmentStatePagerAdapter {
@@ -101,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            LogUtils.d("获取第"+position+"个页面");
+            LogUtils.d("获取第" + position + "个页面");
             return FragmentFactory.getFragment(position);
         }
 

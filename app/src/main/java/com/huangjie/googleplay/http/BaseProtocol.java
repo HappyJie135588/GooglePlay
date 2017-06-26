@@ -1,5 +1,7 @@
 package com.huangjie.googleplay.http;
 
+import android.util.Log;
+
 import com.huangjie.googleplay.utils.Constans;
 import com.huangjie.googleplay.utils.FileUtils;
 import com.huangjie.googleplay.utils.IOUtils;
@@ -13,6 +15,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by 黄杰 on 2017/4/10.
@@ -23,14 +27,17 @@ public abstract class BaseProtocol<T> {
 
     protected abstract T parseJson(String json);
 
+    protected Map<String, String> getParams() {
+        return null;
+    }
 
     public T loadData(int index) throws Throwable {
         //1.到本地中取缓存数据
-        T data = getDataFromLocal(index);
-        if (data != null) {
-            LogUtils.d("使用本地缓存");
-            return data;
-        }
+//        T data = getDataFromLocal(index);
+//        if (data != null) {
+//            LogUtils.d("使用本地缓存");
+//            return data;
+//        }
         //2.到网络中取数据
         return getDataFromNet(index);
     }
@@ -68,7 +75,14 @@ public abstract class BaseProtocol<T> {
     private T getDataFromNet(int index) throws Throwable {
         String url = Constans.ServerUrl + getInterfaceKey();
         RequestParams params = new RequestParams(url);
-        params.addQueryStringParameter("index", index + "");
+        Map<String, String> parameters = getParams();
+        if (parameters == null) {
+            params.addQueryStringParameter("index", index + "");
+        } else {
+            for (Map.Entry<String, String> entry : parameters.entrySet()) {
+                params.addQueryStringParameter(entry.getKey(), entry.getValue());
+            }
+        }
         String result = x.http().getSync(params, String.class);
         LogUtils.d(result.toString());
         //存储到本地
@@ -78,7 +92,10 @@ public abstract class BaseProtocol<T> {
     }
 
     private void write2Local(int index, String json) throws Exception {
+        LogUtils.d("json替换前:"+json);
         json = json.replace("\r\n", " ");
+        json = json.replace("\n", " ");
+        LogUtils.d("json替换后:"+json);
         File file = getCacheFile(index);
         //将json字符写入文件中
         BufferedWriter writer = null;
@@ -106,7 +123,17 @@ public abstract class BaseProtocol<T> {
         //  //存储的路径 sd->Android/data/包名/json/
         //  //文件名称: InterfaceKey + "." + index
         String dir = FileUtils.getDir("json");
-        String name = getInterfaceKey() + "." + index;
+        Map<String, String> params = getParams();
+        String name = null;
+        if (params != null) {
+            StringBuffer sb = new StringBuffer();
+            for (Map.Entry<String, String> me : params.entrySet()) {
+                sb.append("_" + me.getValue());
+            }
+            name = getInterfaceKey() + sb.toString();
+        } else {
+            name = getInterfaceKey() + "." + index;
+        }
         return new File(dir, name);
     }
 }
